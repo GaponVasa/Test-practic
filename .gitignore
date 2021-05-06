@@ -1,0 +1,13 @@
+10_web_local_storage/
+11_web_worker/
+01_object_create/
+02_webpack_draft/
+03_dom_manipulation/
+4_google_charts/
+5_webpack_self_maid/
+6_geolocation_and_map/
+7_xmlHttpRequest_and_fetch/
+8_canvas/
+
+*.swp
+*.swo
