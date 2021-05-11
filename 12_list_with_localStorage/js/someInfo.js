@@ -43,10 +43,10 @@ function generateRandomDataBase() {
 
   let randomEmail = (obj, numFirstName, numLastName, gender) => {
     let arrLength;
-    let randSecondEmail =
+    const randSecondEmail =
       obj.eMailSecond[random(0, obj.eMailSecond.length - 1)];
     arrLength = obj.lastName[numLastName].nikname.length;
-    let randomNiknameLastName =
+    const randomNiknameLastName =
       obj.lastName[numLastName].nikname[random(0, arrLength - 1)];
     let randomNikameFirstName;
     if (gender == "boy") {
@@ -126,9 +126,9 @@ function generateRandomDataBase() {
   let dataArr;
   for (let i = 1; i <= num; i++) {
     if (boyOrGirl >= 4) {
-      dataArr = person(myData, "boy");
+      dataArr = person(randomUsersData, "boy");
     } else {
-      dataArr = person(myData, "girl");
+      dataArr = person(randomUsersData, "girl");
     }
     dataBase[i - 1] = createPerson(dataArr[0], dataArr[1], dataArr[2]);
     dataBaseHTML += `<tr><td> ${dataArr[0]} </td><td> ${dataArr[1]} </td><td> ${dataArr[2]} </td></tr>`;

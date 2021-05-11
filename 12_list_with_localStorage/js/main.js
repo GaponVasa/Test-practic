@@ -5,7 +5,7 @@ const button = document.querySelector('.addNewUsers input[type="button"');
 const divNotFilledField = document.querySelector(".notFilledField");
 const tbody = table.tBodies[0];
 let memory;
-const myData = base.getBase();
+//const myData = base.getBase();
 
 button.addEventListener("click", addNewUser);
 window.addEventListener("load", function () {
