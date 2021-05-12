@@ -1,5 +1,5 @@
 "use strict";
-//Объект данных для создания базы
+//Об'єкт шаблонних даних користувачів
 console.log("myData");
 
 const randomUsersData = {
