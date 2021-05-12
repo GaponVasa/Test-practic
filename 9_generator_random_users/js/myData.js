@@ -246,7 +246,7 @@ const randomUsersData = {
       nikname: ["Samojlovich", "sem"],
     },
   ],
-  eMailSecond: [
+  domain: [
     "google.com",
     "ukr.net",
     "ukrpost.net",

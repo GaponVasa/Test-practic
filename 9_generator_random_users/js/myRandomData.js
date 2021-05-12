@@ -36,6 +36,42 @@ class generateRandomUsersData {
     }
   }
 
+  PRIVATE_createEmail(userObj, emailDomain) {
+    const randomNikFirstName = userObj.firstNameNik;
+    const randomNikLastName = userObj.lastNameNik;
+    const randomNumber = this.PRIVATE_randomNumber(0, 5);
+    const emailDomainLength = emailDomain.length - 1;
+    const randomEmailDomainNumber = this.PRIVATE_randomNumber(
+      0,
+      emailDomainLength
+    );
+    const randomDomain = emailDomain[randomEmailDomainNumber];
+    switch (randomNumber) {
+      case 0:
+        userObj.email =
+          randomNikFirstName + "." + randomNikLastName + "@" + randomDomain;
+        break;
+      case 1:
+        userObj.email =
+          randomNikLastName + "." + randomNikFirstName + "@" + randomDomain;
+        break;
+      case 2:
+        userObj.email =
+          randomNikFirstName + "_" + randomNikLastName + "@" + randomDomain;
+        break;
+      case 3:
+        userObj.email =
+          randomNikLastName + "_" + randomNikFirstName + "@" + randomDomain;
+        break;
+      case 4:
+        userObj.email = randomNikFirstName + "@" + randomDomain;
+        break;
+      case 5:
+        userObj.email = randomNikLastName + "@" + randomDomain;
+        break;
+    }
+  }
+
   PRIVATE_createPerson() {
     const userObj = {
       gender: "",
@@ -54,7 +90,7 @@ class generateRandomUsersData {
     const boyFirstNameArr = patternData.boyFirstName;
     const girlFirstNameArr = patternData.girlFirstName;
     const lastNameArr = patternData.lastName;
-    const eMailSecondArr = patternData.eMailSecond;
+    const domainName = patternData.domain;
 
     this.PRIVATE_boyOrGirl(userObj, rules);
     //console.log(boyFirstNameArr);
@@ -91,6 +127,7 @@ class generateRandomUsersData {
     if (rules.phone === true) {
     }
     if (rules.email === true) {
+      this.PRIVATE_createEmail(userObj, domainName);
     }
     if (rules.role === true) {
     }
