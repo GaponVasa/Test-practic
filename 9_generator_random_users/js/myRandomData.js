@@ -72,6 +72,24 @@ class generateRandomUsersData {
     }
   }
 
+  PRIVATE_createBirthday(userObj, rulesObject) {
+    const startDateObject = new Date(rulesObject.start);
+    const endDateObject = new Date(rulesObject.end);
+    const randomNumber = this.PRIVATE_randomNumber(
+      startDateObject.getTime(),
+      endDateObject.getTime()
+    );
+    const randomDateObject = new Date(randomNumber);
+    const randomDate =
+      randomDateObject.getDate() +
+      "-" +
+      randomDateObject.getMonth() +
+      "-" +
+      randomDateObject.getFullYear();
+    //console.log(randomDate);
+    userObj.bithday = randomDate;
+  }
+
   PRIVATE_createPerson() {
     const userObj = {
       gender: "",
@@ -93,7 +111,7 @@ class generateRandomUsersData {
     const domainName = patternData.domain;
 
     this.PRIVATE_boyOrGirl(userObj, rules);
-    //console.log(boyFirstNameArr);
+
     if (userObj.gender === "boy") {
       this.PRIVATE_createUserName(
         userObj,
@@ -111,9 +129,8 @@ class generateRandomUsersData {
         "firstNameNik"
       );
     }
-    //console.log(rules.last_name);
+
     if (rules.lastName === true) {
-      //console.log("ok");
       this.PRIVATE_createUserName(
         userObj,
         lastNameArr,
@@ -122,7 +139,8 @@ class generateRandomUsersData {
         "lastNameNik"
       );
     }
-    if (rules.bithday === true) {
+    if (typeof rules.bithday === "object") {
+      this.PRIVATE_createBirthday(userObj, rules.bithday);
     }
     if (rules.phone === true) {
     }

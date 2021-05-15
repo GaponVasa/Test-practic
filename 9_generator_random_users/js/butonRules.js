@@ -11,11 +11,11 @@ function deleteRandomUsersObject() {
 const button2 = document.getElementById("generate");
 
 const myRules = {
-  quantitiesOfUsers: 10,
+  quantitiesOfUsers: 2,
   boyOrGirlRelation: 0.5,
   firstName: true,
   lastName: true,
-  bithday: false,
+  bithday: { start: "1950-01-01", end: "2010-01-01" },
   phone: false,
   email: true,
   role: false,
