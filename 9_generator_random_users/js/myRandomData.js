@@ -70,6 +70,8 @@ class generateRandomUsersData {
         userObj.email = randomNikLastName + "@" + randomDomain;
         break;
     }
+    delete userObj.firstNameNik;
+    delete userObj.lastNameNik;
   }
 
   PRIVATE_createBirthday(userObj, rulesObject) {
@@ -86,8 +88,21 @@ class generateRandomUsersData {
       randomDateObject.getMonth() +
       "-" +
       randomDateObject.getFullYear();
-    //console.log(randomDate);
     userObj.bithday = randomDate;
+  }
+
+  PRIVATE_createPhone(userObj) {
+    const randomNumber = Math.random().toString().slice(2, 12);
+    const phoneNumberArr = randomNumber.split("");
+    phoneNumberArr.unshift("(0");
+    phoneNumberArr[3] = ")";
+    userObj.phone = phoneNumberArr.join("");
+  }
+
+  PRIVATE_createRole(userObj, roles) {
+    const maxLength = roles.length - 1;
+    const randomNumber = this.PRIVATE_randomNumber(0, maxLength);
+    userObj.role = roles[randomNumber];
   }
 
   PRIVATE_createPerson() {
@@ -109,6 +124,8 @@ class generateRandomUsersData {
     const girlFirstNameArr = patternData.girlFirstName;
     const lastNameArr = patternData.lastName;
     const domainName = patternData.domain;
+    const role = rules.role;
+    const isTrueRoles = Array.isArray(role);
 
     this.PRIVATE_boyOrGirl(userObj, rules);
 
@@ -143,11 +160,13 @@ class generateRandomUsersData {
       this.PRIVATE_createBirthday(userObj, rules.bithday);
     }
     if (rules.phone === true) {
+      this.PRIVATE_createPhone(userObj);
     }
     if (rules.email === true) {
       this.PRIVATE_createEmail(userObj, domainName);
     }
-    if (rules.role === true) {
+    if (isTrueRoles === true) {
+      this.PRIVATE_createRole(userObj, role);
     }
 
     return userObj;
@@ -158,6 +177,9 @@ class generateRandomUsersData {
     for (let i = 1; i <= number; i++) {
       this.dataBase.push(this.PRIVATE_createPerson());
     }
-    console.log(this.dataBase);
+  }
+
+  getDataBase() {
+    return this.dataBase;
   }
 }

@@ -11,20 +11,21 @@ function deleteRandomUsersObject() {
 const button2 = document.getElementById("generate");
 
 const myRules = {
-  quantitiesOfUsers: 2,
+  quantitiesOfUsers: 10,
   boyOrGirlRelation: 0.5,
   firstName: true,
   lastName: true,
   bithday: { start: "1950-01-01", end: "2010-01-01" },
-  phone: false,
+  phone: true,
   email: true,
-  role: false,
+  role: ["Admin", "User", "Guest"],
 };
 
 const generateUsers = new generateRandomUsersData(myRules, randomUsersData);
 
 button2.addEventListener("click", () => {
   generateUsers.generate();
+  console.log(generateUsers.getDataBase());
 });
 
 //------------------Button To display Local Storage-----------------
