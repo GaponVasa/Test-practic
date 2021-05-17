@@ -45,92 +45,42 @@ main {
 main .container {
   margin: 0 auto;
 }
-.addNewUsers {
-  width: 45%;
-  float: left;
-}
-.addNewUsers h2,
-.usersTable h2 {
+h2 {
   font-size: 25px;
   line-height: 25px;
   margin-bottom: 10px;
 }
-.addNewUsers form {
-  border: 1px solid black;
+.container {
+  width: 100%;
+}
+.table {
+  border: 1px solid #eee;
+  table-layout: fixed;
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+.table th {
+  font-weight: bold;
   padding: 5px;
+  background: #efefef;
+  border: 1px solid #dddddd;
 }
-.addNewUsers p {
-  margin: 20px 0 0 0;
+.table td {
+  padding: 5px 10px;
+  border: 1px solid #eee;
+  text-align: left;
 }
-.addNewUsers p input,
-.addNewUsers p select {
-  width: 40%;
-  padding: 3px;
-  font-size: 16px;
-  line-height: 16px;
+.table tbody tr:nth-child(odd) {
+  background: #fff;
 }
-.addNewUsers p select {
-  margin-left: 20px;
+.table tbody tr:nth-child(even) {
+  background: #f7f7f7;
 }
-.addNewUsers p select option {
-  border-bottom: 1px solid black;
-}
-.addNewUsers p input[type="button"] {
-  padding: 7px 10px;
-  font-size: 18px;
-  line-height: 18px;
-  font-weight: bold;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.usersTable {
-  width: 45%;
-  float: right;
-}
-.usersTable table {
-  width: 100%;
-}
-.usersTable tr th,
-.usersTable tr td {
-  padding: 3px;
-  font-size: 16px;
-  line-height: 16px;
-  border: 1px solid black;
-}
-.usersTable tr th {
-  background-color: #ccc;
-}
-.usersTable tr td input[type="text"] {
-  width: 98%;
-  font-size: 16px;
-  line-height: 16px;
-}
-/*----------------------------FOOTER-----------------------------*/
-footer {
-  width: 100%;
-  margin: 10px auto;
-  padding: 20px;
-  border: 1px solid black;
-}
-footer .container {
-  margin: 0 auto;
-}
-footer .container h1 {
-  font-size: 30px;
-  line-height: 30px;
-}
-footer .container p input[type="button"] {
-  padding: 7px 10px;
-  margin: 10px 20px 0 0;
-  font-size: 18px;
-  line-height: 18px;
-  font-weight: bold;
-  border-radius: 3px;
-  cursor: pointer;
-}
+
 /*-----------------------------MEDIA------------------------------*/
 @media (max-width: 910px) {
-  .usersTable table {
+  .container table {
     max-width: 100%;
     display: block;
     overflow: auto;

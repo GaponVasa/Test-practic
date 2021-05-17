@@ -2,6 +2,15 @@
 
 //rules - object налаштуваннь для вихідного масиву даних
 //{quantitiesOfUsers, boyOrGirlRelation, first_name, last_name, bithday, phone, email, role}
+//quantitiesOfUsers - кількість об'єктів інформації про уявних людей
+//boyOrGirlRelation - співвідношення статі
+//first_name - ім'я
+//last_name - прізвище
+// bithday - день народження
+//phone - телефон
+//email - електронна скринька
+//role - статус уявної людини
+////////////////////////////////////////////////////////////////////////////////////////////
 // patternData - object набір шаблонів для створення вихідного масиву даних
 class generateRandomUsersData {
   constructor(rules, patternData) {
@@ -18,7 +27,7 @@ class generateRandomUsersData {
     const getRandomBoyOrGirlNumber = this.PRIVATE_randomNumber(0, 10);
     const boyOrGirlRelation = rules.boyOrGirlRelation * 10;
     userObj.gender =
-      getRandomBoyOrGirlNumber >= boyOrGirlRelation ? "boy" : "girl";
+      getRandomBoyOrGirlNumber <= boyOrGirlRelation ? "boy" : "girl";
   }
 
   PRIVATE_createUserName(userObj, nameArr, rules, nameField, nikNameField) {
@@ -70,8 +79,6 @@ class generateRandomUsersData {
         userObj.email = randomNikLastName + "@" + randomDomain;
         break;
     }
-    delete userObj.firstNameNik;
-    delete userObj.lastNameNik;
   }
 
   PRIVATE_createBirthday(userObj, rulesObject) {
@@ -105,18 +112,12 @@ class generateRandomUsersData {
     userObj.role = roles[randomNumber];
   }
 
+  PRIVATE_deleteDataBase() {
+    this.dataBase = [];
+  }
+
   PRIVATE_createPerson() {
-    const userObj = {
-      gender: "",
-      firstName: "",
-      firstNameNik: "",
-      lastName: "",
-      lastNameNik: "",
-      bithday: "",
-      phone: "",
-      email: "",
-      role: "",
-    };
+    const userObj = {};
 
     const rules = this.rules;
     const patternData = this.patternData;
@@ -156,30 +157,39 @@ class generateRandomUsersData {
         "lastNameNik"
       );
     }
+
     if (typeof rules.bithday === "object") {
       this.PRIVATE_createBirthday(userObj, rules.bithday);
     }
+
     if (rules.phone === true) {
       this.PRIVATE_createPhone(userObj);
     }
+
     if (rules.email === true) {
       this.PRIVATE_createEmail(userObj, domainName);
     }
+
     if (isTrueRoles === true) {
       this.PRIVATE_createRole(userObj, role);
     }
-
+    delete userObj.firstNameNik;
+    delete userObj.lastNameNik;
     return userObj;
   }
 
   generate() {
-    let number = this.rules.quantitiesOfUsers;
+    const number = this.rules.quantitiesOfUsers;
+    this.PRIVATE_deleteDataBase();
     for (let i = 1; i <= number; i++) {
       this.dataBase.push(this.PRIVATE_createPerson());
     }
   }
 
-  getDataBase() {
-    return this.dataBase;
+  getDataBase(array) {
+    array.length = 0;
+    this.dataBase.forEach((element) => {
+      array.push(element);
+    });
   }
 }
