@@ -54,8 +54,10 @@ h2 {
   width: 100%;
 }
 .table {
+  font-size: 0.75rem;
+  word-wrap: break-word;
   border: 1px solid #eee;
-  table-layout: fixed;
+  table-layout: auto;
   width: 100%;
   margin-bottom: 20px;
   border-collapse: collapse;

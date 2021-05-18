@@ -20,7 +20,7 @@ const myRules =
     bithday: { start: "1970-01-01", end: "2010-01-01" },
     phone: true,
     email: true,
-    role: ["Admin", "User", "Guest"],
+    role: ["Admin", "User", "Guest_1", "Guest_2", "Premium_Guest"],
   };
 const generateUsers = new generateRandomUsersData(myRules, randomUsersData);
 const dataBase = [];

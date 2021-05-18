@@ -3,7 +3,7 @@
 console.log("myData");
 
 const randomUsersData = {
-  role: ["admin", "user", "guest"],
+  roles: ["admin", "user", "guest"],
   boyFirstName: [
     {
       name: "Василь",
@@ -74,8 +74,8 @@ const randomUsersData = {
       nikname: ["Iosif", "IO", "IoS"],
     },
     {
-      name: "Эфрем",
-      nikname: ["Efrem", "EF", "efr"],
+      name: "Охрим",
+      nikname: ["Ohrim", "OH", "Ohr"],
     },
     {
       name: "Аркадій",
@@ -84,7 +84,7 @@ const randomUsersData = {
   ],
   girlFirstName: [
     {
-      name: "Наталія",
+      name: "Наталя",
       nikname: ["nata", "Natasha", "Natalja"],
     },
     {
@@ -145,7 +145,7 @@ const randomUsersData = {
     },
     {
       name: "Марта",
-      nikname: ["Marta", "mrt"],
+      nikname: ["Marta", "mrt", "mart"],
     },
     {
       name: "Софія",

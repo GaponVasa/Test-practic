@@ -3,13 +3,13 @@
 //rules - object налаштуваннь для вихідного масиву даних
 //{quantitiesOfUsers, boyOrGirlRelation, first_name, last_name, bithday, phone, email, role}
 //quantitiesOfUsers - кількість об'єктів інформації про уявних людей
-//boyOrGirlRelation - співвідношення статі
-//first_name - ім'я
-//last_name - прізвище
-// bithday - день народження
-//phone - телефон
-//email - електронна скринька
-//role - статус уявної людини
+//boyOrGirlRelation - співвідношення статі користувачів. 0 - тільки дівчатка, 1 - тільки хлопчики.
+//first_name - ім'я користувача. true - добавляємо до об'єкту false - не добавляємо.
+//last_name - прізвище користувача. true - добавляємо до об'єкту false - не добавляємо.
+// bithday - день народження користувача. Object - добавляємо згідно об'єкта, де start - початкова дата(String) end - кінцева дата(String) періоду в якому буде створюватись дата. false - не добавляємо.
+//phone - телефон. true - добавляємо до об'єкту false - не добавляємо.
+//email - електронна скринька. true - добавляємо до об'єкту false - не добавляємо.
+//role - статус користувача. Array - добавляємо до об'єкту згідно ролей зазначених у масиві. Ролі добавляються у форматі рядок(STRING). false - не добавляємо.
 ////////////////////////////////////////////////////////////////////////////////////////////
 // patternData - object набір шаблонів для створення вихідного масиву даних
 class generateRandomUsersData {
@@ -36,7 +36,9 @@ class generateRandomUsersData {
     const randomUserPattern = nameArr[randomNumber];
     const randomNikNameArrLength = randomUserPattern.nikname.length - 1;
     const name = randomUserPattern.name;
-    userObj[nameField] = name;
+    if (nameField !== false) {
+      userObj[nameField] = name;
+    }
     if (rules.email === true) {
       userObj[nikNameField] =
         randomUserPattern.nikname[
@@ -107,9 +109,16 @@ class generateRandomUsersData {
   }
 
   PRIVATE_createRole(userObj, roles) {
-    const maxLength = roles.length - 1;
-    const randomNumber = this.PRIVATE_randomNumber(0, maxLength);
-    userObj.role = roles[randomNumber];
+    if (!roles) {
+      console.log(this.patternData);
+      const maxLength = this.patternData.roles.length - 1;
+      const randomNumber = this.PRIVATE_randomNumber(0, maxLength);
+      userObj.role = this.patternData.roles[randomNumber];
+    } else {
+      const maxLength = roles.length - 1;
+      const randomNumber = this.PRIVATE_randomNumber(0, maxLength);
+      userObj.role = roles[randomNumber];
+    }
   }
 
   PRIVATE_deleteDataBase() {
@@ -127,26 +136,26 @@ class generateRandomUsersData {
     const domainName = patternData.domain;
     const role = rules.role;
     const isTrueRoles = Array.isArray(role);
+    let nameField = false;
+    let girlBoyNameArr = [];
 
     this.PRIVATE_boyOrGirl(userObj, rules);
 
-    if (userObj.gender === "boy") {
-      this.PRIVATE_createUserName(
-        userObj,
-        boyFirstNameArr,
-        rules,
-        "firstName",
-        "firstNameNik"
-      );
-    } else if (userObj.gender === "girl") {
-      this.PRIVATE_createUserName(
-        userObj,
-        girlFirstNameArr,
-        rules,
-        "firstName",
-        "firstNameNik"
-      );
+    if (rules.firstName === true) {
+      nameField = "firstName";
     }
+    if (userObj.gender === "boy") {
+      girlBoyNameArr = boyFirstNameArr;
+    } else if (userObj.gender === "girl") {
+      girlBoyNameArr = girlFirstNameArr;
+    }
+    this.PRIVATE_createUserName(
+      userObj,
+      girlBoyNameArr,
+      rules,
+      nameField,
+      "firstNameNik"
+    );
 
     if (rules.lastName === true) {
       this.PRIVATE_createUserName(
@@ -172,7 +181,10 @@ class generateRandomUsersData {
 
     if (isTrueRoles === true) {
       this.PRIVATE_createRole(userObj, role);
+    } else if (role === true) {
+      this.PRIVATE_createRole(userObj);
     }
+
     delete userObj.firstNameNik;
     delete userObj.lastNameNik;
     return userObj;
