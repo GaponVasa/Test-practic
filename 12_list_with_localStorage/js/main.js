@@ -1,29 +1,28 @@
 "use strict";
 
+const formUserData = document.getElementById("addNewUserData");
 const table = document.querySelector("table");
 const button = document.querySelector('.addNewUsers input[type="button"');
 const divNotFilledField = document.querySelector(".notFilledField");
-const tbody = table.tBodies[0];
 let memory;
-//const myData = base.getBase();
+const userData = new manipulateUsersData(formUserData, divNotFilledField);
 
-button.addEventListener("click", addNewUser);
-window.addEventListener("load", function () {
-  //перевіряємо чи існує LocalStorage, якщо так заносимо данні в таблицю
-  const localStorageObj = getSetLocalStorage();
-  if (localStorageObj) {
-    let keys = Object.keys(localStorageObj);
-    keys.forEach((el) => {
-      addHtmlToTable(
-        localStorageObj[el].name,
-        localStorageObj[el].email,
-        localStorageObj[el].role
-      );
-    });
-  }
+button.addEventListener("click", () => {
+  const newUserData = userData.getNewUserData();
+  console.log(
+    newUserData === undefined ? "nothin in newUserData" : newUserData
+  );
 });
-table.addEventListener("dblclick", editTable);
-document.body.addEventListener("click", deleteInput);
+window.addEventListener("load", function () {
+  const localStorageArr = storageManipulate.getLocalStorage();
+  usersTable.setDataBase(localStorageArr);
+  usersTable.create(thead, tbody);
+});
+
+//table.addEventListener("dblclick", editTable);
+//document.body.addEventListener("click", deleteInput);
+
+//////////////////////////////////////////////////////////////////////
 
 function addNewUser() {
   const reg = /([a-zA-Z0-9_.]{1,})((@[a-zA-Z]{2,})[\\\.]([a-zA-Z]{2,3}))/;
@@ -61,73 +60,6 @@ function notFilledField(field) {
     divNotFilledField.style.top = coordinates.bottom + pageYOffset + 9 + "px";
     divNotFilledField.style.left =
       coordinates.left + coordinates.width / 4 + "px";
-  }
-}
-
-class Person {
-  constructor(name, email) {
-    this.name = name;
-    this.email = email;
-  }
-}
-
-class Admin extends Person {
-  constructor(name, email) {
-    super(name, email);
-    this.role = "admin";
-  }
-}
-
-class User extends Person {
-  constructor(name, email) {
-    super(name, email);
-    this.role = "user";
-  }
-}
-
-class Guest extends Person {
-  constructor(name, email) {
-    super(name, email);
-    this.role = "guest";
-  }
-}
-
-function createPerson(name, email, role) {
-  if (role === "admin") {
-    return new Admin(name, email);
-  } else if (role === "user") {
-    return new User(name, email);
-  } else if (role === "guest") {
-    return new Guest(name, email);
-  }
-}
-
-function addToTable(name, email, role) {
-  let objPerson, returnObj, arrKeys, lastKey;
-  objPerson = createPerson(name, email, role);
-  //console.log("objPerson", objPerson);
-  if (localStorage.getItem("myTable")) {
-    returnObj = getSetLocalStorage();
-    arrKeys = Object.keys(returnObj);
-    lastKey = parseInt(arrKeys[arrKeys.length - 1]);
-    returnObj[lastKey + 1] = objPerson;
-    getSetLocalStorage(returnObj);
-    //console.log("ok if");
-  } else {
-    returnObj = {};
-    returnObj["0"] = objPerson;
-    getSetLocalStorage(returnObj);
-    //console.log("ok else");
-  }
-  //console.log("returnObj", returnObj);
-  addHtmlToTable(name, email, role);
-}
-
-function getSetLocalStorage(obj) {
-  if (obj) {
-    localStorage.setItem("myTable", JSON.stringify(obj));
-  } else {
-    return JSON.parse(localStorage.getItem("myTable"));
   }
 }
 

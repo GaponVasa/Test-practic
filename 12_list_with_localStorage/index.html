@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <title>User List from Gapon_V</title>
+    <title>User List</title>
     <link rel="stylesheet" type="text/css" href="css/reset_css.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" type="text/css" href="css/notFilledField.css" />
@@ -16,8 +16,8 @@
     <main>
       <div class="container">
         <div class="addNewUsers">
-          <h2>Add new</h2>
-          <form action="">
+          <h2>Add new user</h2>
+          <form action="" id="addNewUserData">
             <p>
               <input
                 type="text"
@@ -46,13 +46,8 @@
         <div class="usersTable">
           <h2>USERS</h2>
           <table>
-            <tbody>
-              <tr>
-                <th>name</th>
-                <th>email</th>
-                <th>role</th>
-              </tr>
-            </tbody>
+            <thead></thead>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -84,7 +79,11 @@
     </footer>
     <div class="notFilledField">Fill this field</div>
     <script src="js/myData.js" type="text/javascript"></script>
+    <script src="js/storageManipulate.js"></script>
+    <script src="js/myRandomData.js"></script>
+    <script src="js/createTable.js"></script>
     <script src="js/someInfo.js" type="text/javascript"></script>
+    <script src="js/manipulateUsersData.js"></script>
     <script src="js/main.js" type="text/javascript"></script>
   </body>
 </html>

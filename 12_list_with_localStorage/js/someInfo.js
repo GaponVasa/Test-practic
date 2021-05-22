@@ -1,146 +1,59 @@
 "use strict";
+const thead = document.querySelector("thead");
+const tbody = document.querySelector("tbody");
+const nameStorage = "myTable";
+const myRules = {
+  quantitiesOfUsers: 7,
+  boyOrGirlRelation: 0.5,
+  boyOrGirl: false,
+  firstName: true,
+  lastName: false,
+  bithday: false,
+  phone: false,
+  email: true,
+  role: true,
+};
+// {
+//   quantitiesOfUsers: 5,
+//   boyOrGirlRelation: 0.5,
+//   boyOrGirl: true,
+//   firstName: true,
+//   lastName: true,
+//   bithday: { start: "1970-01-01", end: "2010-01-01" },
+//   phone: true,
+//   email: true,
+//   role: ["Admin", "User", "Guest_1", "Guest_2", "Premium_Guest"],
+// };
+const generateUsers = new generateRandomUsersData(myRules, randomUsersData);
+const dataBase = [];
+const usersTable = new createTable(dataBase);
+const storageManipulate = new localStorageManipulate(nameStorage);
 
 //-------------------Button Delete Local Storage---------------------
 const button1 = document.getElementById("delete");
 button1.addEventListener("click", deleteLocalStorage);
 function deleteLocalStorage() {
-  localStorage.removeItem("myTable");
   console.log("Dlete Local Storage");
-  tbody.innerHTML = "<tr><th>name</th><th>email</th><th>role</th></tr>";
+  storageManipulate.deleteLocalStorage();
+  usersTable.clearTable();
 }
 
 //------------------Button Generate Random Local Storage------------
 const button2 = document.getElementById("generate");
-let dataBase, dataBaseHTML;
-button2.addEventListener("click", generateRandomLocalStorage);
-
-function generateRandomLocalStorage() {
-  let returnObj, arrKeys, lastKey, arrDataBaseKeys;
-  dataBase = {};
-  dataBaseHTML = "";
-  const tbody = table.tBodies[0];
-  generateRandomDataBase();
-  //перевіряємо чи є в LocalStorage данні, якщо є, то добавляємо за правилом в if
-  if (localStorage.getItem("myTable")) {
-    returnObj = getSetLocalStorage();
-    arrKeys = Object.keys(returnObj);
-    arrDataBaseKeys = Object.keys(dataBase);
-    lastKey = parseInt(arrKeys[arrKeys.length - 1]) + 1;
-    arrDataBaseKeys.forEach((el, ind) => {
-      returnObj[lastKey + ind] = dataBase[el];
-    });
-    getSetLocalStorage(returnObj);
-  } else {
-    getSetLocalStorage(dataBase);
-  }
-  tbody.innerHTML += dataBaseHTML;
-}
-
-function generateRandomDataBase() {
-  const num = 10; //кількість створюваних персон
-  const random = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1) + min);
-
-  let randomEmail = (obj, numFirstName, numLastName, gender) => {
-    let arrLength;
-    const randSecondEmail =
-      obj.eMailSecond[random(0, obj.eMailSecond.length - 1)];
-    arrLength = obj.lastName[numLastName].nikname.length;
-    const randomNiknameLastName =
-      obj.lastName[numLastName].nikname[random(0, arrLength - 1)];
-    let randomNikameFirstName;
-    if (gender == "boy") {
-      arrLength = obj.boyFirstName[numFirstName].nikname.length;
-      randomNikameFirstName =
-        obj.boyFirstName[numFirstName].nikname[random(0, arrLength - 1)];
-    } else {
-      arrLength = obj.girlFirstName[numFirstName].nikname.length;
-      randomNikameFirstName =
-        obj.girlFirstName[numFirstName].nikname[random(0, arrLength - 1)];
-    }
-
-    switch (random(0, 5)) {
-      case 0:
-        return (
-          randomNikameFirstName +
-          "." +
-          randomNiknameLastName +
-          "@" +
-          randSecondEmail
-        );
-        break;
-      case 1:
-        return (
-          randomNiknameLastName +
-          "." +
-          randomNikameFirstName +
-          "@" +
-          randSecondEmail
-        );
-        break;
-      case 2:
-        return (
-          randomNikameFirstName +
-          "_" +
-          randomNiknameLastName +
-          "@" +
-          randSecondEmail
-        );
-        break;
-      case 3:
-        return (
-          randomNiknameLastName +
-          "_" +
-          randomNikameFirstName +
-          "@" +
-          randSecondEmail
-        );
-        break;
-      case 4:
-        return randomNikameFirstName + "@" + randSecondEmail;
-        break;
-      case 5:
-        return randomNiknameLastName + "@" + randSecondEmail;
-        break;
-    }
-  };
-
-  let person = (myObj, gender) => {
-    let eMail, name;
-    let numberFirstName;
-    const numberRole = random(0, myObj.role.length - 1);
-    const role = myObj.role[numberRole];
-    let numberLastName = random(0, myObj.lastName.length - 1);
-    if (gender == "boy") {
-      numberFirstName = random(0, myObj.boyFirstName.length - 1);
-      name = myObj.boyFirstName[numberFirstName].name;
-    } else {
-      numberFirstName = random(0, myObj.girlFirstName.length - 1);
-      name = myObj.girlFirstName[numberFirstName].name;
-    }
-    eMail = randomEmail(myObj, numberFirstName, numberLastName, gender);
-    return [name, eMail, role];
-  };
-
-  let boyOrGirl = random(1, 7);
-  let dataArr;
-  for (let i = 1; i <= num; i++) {
-    if (boyOrGirl >= 4) {
-      dataArr = person(randomUsersData, "boy");
-    } else {
-      dataArr = person(randomUsersData, "girl");
-    }
-    dataBase[i - 1] = createPerson(dataArr[0], dataArr[1], dataArr[2]);
-    dataBaseHTML += `<tr><td> ${dataArr[0]} </td><td> ${dataArr[1]} </td><td> ${dataArr[2]} </td></tr>`;
-    boyOrGirl = random(1, 7);
-  }
-}
+let dataBaseHTML;
+button2.addEventListener("click", () => {
+  generateUsers.generate();
+  generateUsers.getDataBase(dataBase);
+  storageManipulate.setLocalStorage(dataBase);
+  usersTable.setDataBase(dataBase);
+  usersTable.create(thead, tbody);
+});
 
 //------------------Button To display Local Storage-----------------
 const button3 = document.getElementById("toDisplay");
 button3.addEventListener("click", toDisplayLocalStorage);
 function toDisplayLocalStorage() {
-  let obj = JSON.parse(localStorage.getItem("myTable"));
+  const obj = storageManipulate.getLocalStorage();
   if (obj === null) {
     console.log("Local Storage not created");
   } else {

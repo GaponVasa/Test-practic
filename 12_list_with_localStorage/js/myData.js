@@ -1,36 +1,36 @@
 "use strict";
-//Объект данных для создания базы
+//Об'єкт шаблонних даних користувачів
 console.log("myData");
 
 const randomUsersData = {
-  role: ["admin", "user", "guest"],
+  roles: ["admin", "user", "guest"],
   boyFirstName: [
     {
-      name: "Василий",
+      name: "Василь",
       nikname: ["vas", "vasa", "Vasyl"],
     },
     {
-      name: "Иван",
+      name: "Іван",
       nikname: ["ivan", "Iv", "iivan"],
     },
     {
-      name: "Николай",
+      name: "Микола",
       nikname: ["Nik", "nikolay", "Mykola"],
     },
     {
-      name: "Петр",
+      name: "Петро",
       nikname: ["petr", "pr", "Piter"],
     },
     {
-      name: "Сергей",
+      name: "Сергій",
       nikname: ["Serg", "ser", "sergiy"],
     },
     {
-      name: "Дмитрий",
+      name: "Дмитро",
       nikname: ["Dmitr", "DimDim", "Dmitro"],
     },
     {
-      name: "Вячеслав",
+      name: "В'ячеслав",
       nikname: ["Vjacheslav", "vjv", "Slavik"],
     },
     {
@@ -38,19 +38,19 @@ const randomUsersData = {
       nikname: ["Vlad", "Vladislav", "vld"],
     },
     {
-      name: "Александр",
+      name: "Олександр",
       nikname: ["Alex", "Oleksandr", "Alexander"],
     },
     {
-      name: "Михаил",
+      name: "Михаило",
       nikname: ["Mihas", "Mihail", "MiH"],
     },
     {
-      name: "Юрий",
+      name: "Юрій",
       nikname: ["Yuriy", "YY", "Yiy"],
     },
     {
-      name: "Андрей",
+      name: "Андрій",
       nikname: ["Andre", "Andr", "adr"],
     },
     {
@@ -58,11 +58,11 @@ const randomUsersData = {
       nikname: ["Kuzma", "kuzja", "kz"],
     },
     {
-      name: "Артём",
+      name: "Артем",
       nikname: ["Artem", "ART", "at"],
     },
     {
-      name: "Тимофей",
+      name: "Тимофій",
       nikname: ["Timofey", "TimTim", "tmf"],
     },
     {
@@ -70,25 +70,25 @@ const randomUsersData = {
       nikname: ["miki", "Nikita", "Mikita"],
     },
     {
-      name: "Иосиф",
+      name: "Йосиф",
       nikname: ["Iosif", "IO", "IoS"],
     },
     {
-      name: "Эфрем",
-      nikname: ["Efrem", "EF", "efr"],
+      name: "Охрим",
+      nikname: ["Ohrim", "OH", "Ohr"],
     },
     {
-      name: "Аркадий",
+      name: "Аркадій",
       nikname: ["Arkadiy", "ark", "Arkad"],
     },
   ],
   girlFirstName: [
     {
-      name: "Наталья",
+      name: "Наталя",
       nikname: ["nata", "Natasha", "Natalja"],
     },
     {
-      name: "Юлия",
+      name: "Юлія",
       nikname: ["Iyulija", "Yula", "bulka"],
     },
     {
@@ -96,7 +96,7 @@ const randomUsersData = {
       nikname: ["Olga", "Volka", "olg"],
     },
     {
-      name: "Светлана",
+      name: "Світлана",
       nikname: ["sv", "Sveta", "Svetlana"],
     },
     {
@@ -108,11 +108,11 @@ const randomUsersData = {
       nikname: ["Ulja", "Uljana", "ul"],
     },
     {
-      name: "Екатерина",
+      name: "Катерина",
       nikname: ["katja", "Ekaterina", "Katrusja"],
     },
     {
-      name: "Татьяна",
+      name: "Тетяна",
       nikname: ["Tatjana", "tat", "TT"],
     },
     {
@@ -120,7 +120,7 @@ const randomUsersData = {
       nikname: ["Oksana", "oks", "ksusha"],
     },
     {
-      name: "Лидия",
+      name: "Лідія  ",
       nikname: ["Lida", "Lidija", "lD"],
     },
     {
@@ -136,19 +136,19 @@ const randomUsersData = {
       nikname: ["Varvara", "Varja", "Barbara"],
     },
     {
-      name: "Вера",
+      name: "Віра",
       nikname: ["Vera", "verka", "vrk"],
     },
     {
-      name: "Эрика",
+      name: "Еріка",
       nikname: ["Erika", "erk", "erika"],
     },
     {
       name: "Марта",
-      nikname: ["Marta", "mrt"],
+      nikname: ["Marta", "mrt", "mart"],
     },
     {
-      name: "София",
+      name: "Софія",
       nikname: ["Sofija", "Sofa", "sfj"],
     },
     {
@@ -166,7 +166,7 @@ const randomUsersData = {
       nikname: ["Petruhnenko", "petruhn"],
     },
     {
-      name: "Иваненко",
+      name: "Іваненко",
       nikname: ["Ivanenko", "ivanko"],
     },
     {
@@ -206,23 +206,23 @@ const randomUsersData = {
       nikname: ["Danilko", "danko"],
     },
     {
-      name: "Андреєв",
-      nikname: ["Andrejev", "andre"],
+      name: "Андрієв",
+      nikname: ["Andrijev", "andre"],
     },
     {
-      name: "Палийчук",
-      nikname: ["Plijchuk", "paliy", "pal"],
+      name: "Палійчук",
+      nikname: ["Palijchuk", "paliy", "pal"],
     },
     {
-      name: "Лесин",
+      name: "Лесін",
       nikname: ["Lesin", "LES", "lis"],
     },
     {
-      name: "Яровой",
-      nikname: ["Jarovoj", "jar", "JaRik"],
+      name: "Яровий",
+      nikname: ["Jaroviy", "jar", "JaRik"],
     },
     {
-      name: "Малыш",
+      name: "Малиш",
       nikname: ["Malish", "mal", "small"],
     },
     {
@@ -246,7 +246,7 @@ const randomUsersData = {
       nikname: ["Samojlovich", "sem"],
     },
   ],
-  eMailSecond: [
+  domain: [
     "google.com",
     "ukr.net",
     "ukrpost.net",
