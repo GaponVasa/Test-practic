@@ -5,22 +5,38 @@ const table = document.querySelector("table");
 const button = document.querySelector('.addNewUsers input[type="button"');
 const divNotFilledField = document.querySelector(".notFilledField");
 let memory;
-const userData = new manipulateUsersData(formUserData, divNotFilledField);
+const userData = new addNewUsersData(formUserData, divNotFilledField);
 
 button.addEventListener("click", () => {
   const newUserData = userData.getNewUserData();
-  console.log(
-    newUserData === undefined ? "nothin in newUserData" : newUserData
-  );
+  // console.log(
+  //   newUserData === undefined ? "nothin in newUserData" : newUserData
+  // );
+  if (newUserData !== undefined) {
+    addNewUserToLocalStorage(storageManipulate, newUserData);
+    renderTable(storageManipulate, usersTable, thead, tbody);
+  }
 });
 window.addEventListener("load", function () {
-  const localStorageArr = storageManipulate.getLocalStorage();
-  usersTable.setDataBase(localStorageArr);
-  usersTable.create(thead, tbody);
+  renderTable(storageManipulate, usersTable, thead, tbody);
 });
 
 //table.addEventListener("dblclick", editTable);
 //document.body.addEventListener("click", deleteInput);
+
+function renderTable(storagManipulation, tabelManipulation, thead, tbody) {
+  const localStorageArr = storagManipulation.getLocalStorage();
+  if (localStorageArr !== undefined) {
+    tabelManipulation.setDataBase(localStorageArr);
+    tabelManipulation.create(thead, tbody);
+  }
+}
+
+function addNewUserToLocalStorage(storagManipulation, newUser) {
+  const oldStorage = storagManipulation.getLocalStorage();
+  oldStorage.push(newUser);
+  storagManipulation.setLocalStorage(oldStorage);
+}
 
 //////////////////////////////////////////////////////////////////////
 

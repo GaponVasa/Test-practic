@@ -15,19 +15,15 @@ class createTable {
     return tr;
   }
 
-  PRIVATE_addUser(user) {
-    const tr = document.createElement("tr");
-    this.fields.forEach((innElement) => {
-      const td = document.createElement("td");
-      td.innerHTML = user[innElement];
-      tr.appendChild(td);
-    });
-    return tr;
-  }
-
   PRIVATE_addAllUsers(tbody) {
     this.dataBase.forEach((element) => {
-      tbody.appendChild(this.PRIVATE_addUser(element));
+      const tr = document.createElement("tr");
+      this.fields.forEach((innElement) => {
+        const td = document.createElement("td");
+        td.innerHTML = element[innElement];
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
     });
   }
 
@@ -37,9 +33,13 @@ class createTable {
     this.PRIVATE_addAllUsers(tbody);
   }
 
-  clearTable(thead, tbody) {
-    thead.innerHTML = "";
-    tbody.innerHTML = "";
+  clearTable(tbody, thead) {
+    if (thead) {
+      thead.innerHTML = "";
+    }
+    if (tbody) {
+      tbody.innerHTML = "";
+    }
   }
 
   setDataBase(dataBase) {

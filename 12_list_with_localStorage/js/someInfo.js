@@ -35,7 +35,7 @@ button1.addEventListener("click", deleteLocalStorage);
 function deleteLocalStorage() {
   console.log("Dlete Local Storage");
   storageManipulate.deleteLocalStorage();
-  usersTable.clearTable();
+  usersTable.clearTable(tbody);
 }
 
 //------------------Button Generate Random Local Storage------------

@@ -1,6 +1,6 @@
 "use strict";
 
-class manipulateUsersData {
+class addNewUsersData {
   constructor(form, alarmDiv) {
     this.form = form;
     this.nameField = form.querySelector('input[type="text"]');
@@ -28,7 +28,7 @@ class manipulateUsersData {
   }
 
   getNewUserData() {
-    const userArr = [];
+    const newUser = {};
     if (this.divNotFilledField.style.display === "block") {
       this.divNotFilledField.style.display = "none";
     }
@@ -40,12 +40,11 @@ class manipulateUsersData {
       this.PRIVATE_notFilledField(this.emailField);
     } else {
       //selectValue = this.select.value.toLowerCase();
-
-      userArr.push(this.nameField.value);
-      userArr.push(this.emailField.value);
-      userArr.push(this.select.value.toLowerCase());
+      newUser["firstName"] = this.nameField.value;
+      newUser["email"] = this.emailField.value;
+      newUser["role"] = this.select.value.toLowerCase();
       this.form.reset();
-      return userArr;
+      return newUser;
     }
   }
 }
