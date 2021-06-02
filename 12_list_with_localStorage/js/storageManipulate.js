@@ -9,6 +9,8 @@ class localStorageManipulate {
     const storage = localStorage.getItem(this.nameLocalStorage);
     if (storage !== null) {
       return JSON.parse(storage);
+    } else {
+      return null;
     }
   }
 

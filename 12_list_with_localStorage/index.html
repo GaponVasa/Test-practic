@@ -25,12 +25,6 @@
                 placeholder="Enter Name"
                 required
               />
-              <select name="userRole" required>
-                <option selected>select role</option>
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
-                <option value="Guest">Guest</option>
-              </select>
             </p>
             <p>
               <input
@@ -40,7 +34,15 @@
                 required
               />
             </p>
-            <p><input type="button" formaction="#" value="ADD" /></p>
+            <p>
+              <select name="userRole" required>
+                <option selected>select role</option>
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+                <option value="Guest">Guest</option>
+              </select>
+            </p>
+            <p><button>ADD</button></p>
           </form>
         </div>
         <div class="usersTable">
@@ -82,7 +84,6 @@
     <script src="js/storageManipulate.js"></script>
     <script src="js/myRandomData.js"></script>
     <script src="js/createTable.js"></script>
-    <script src="js/someInfo.js" type="text/javascript"></script>
     <script src="js/addNewUsersData.js"></script>
     <script src="js/main.js" type="text/javascript"></script>
   </body>

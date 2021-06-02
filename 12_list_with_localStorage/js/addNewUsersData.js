@@ -7,14 +7,11 @@ class addNewUsersData {
     this.emailField = form.querySelector('input[type="email"]');
     this.select = form.querySelector("select");
     this.reg = /([a-zA-Z0-9_.]{1,})((@[a-zA-Z]{2,})[\\\.]([a-zA-Z]{2,3}))/;
-    //this.selectValue = null;
     this.divNotFilledField = alarmDiv;
   }
 
   PRIVATE_notFilledField(field) {
     const coordinates = field.getBoundingClientRect();
-    //let top = divNotFilledField.style.top;
-    //let left = divNotFilledField.style.left;
     divNotFilledField.style.display = "block";
     if (
       field.name === "userName" ||
