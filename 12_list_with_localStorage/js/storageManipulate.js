@@ -1,6 +1,6 @@
 "use strict";
 
-class localStorageManipulate {
+class LocalStorageManipulate {
   constructor(nameLocalStorage) {
     this.nameLocalStorage = nameLocalStorage;
   }

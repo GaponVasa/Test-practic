@@ -1,6 +1,7 @@
 "use strict";
 
 const myRules = {
+  id: true,
   quantitiesOfUsers: 7,
   boyOrGirlRelation: 0.5,
   boyOrGirl: false,
@@ -12,28 +13,35 @@ const myRules = {
   role: true,
 };
 
-const thead = document.querySelector("thead");
-const tbody = document.querySelector("tbody");
+const table = document.querySelector(".usersTable table");
 const nameStorage = "myTable";
 const dataBase = [];
 const formUserData = document.getElementById("addNewUserData");
-const table = document.querySelector("table");
 const button = document.querySelector(".addNewUsers button");
 const divNotFilledField = document.querySelector(".notFilledField");
 const button1 = document.getElementById("delete");
 const button2 = document.getElementById("generate");
 const button3 = document.getElementById("toDisplay");
+const valueArr = ["firstName", "email", "role"];
+const dataArr = ["id"];
+const addData = "id";
 
-const generateUsers = new generateRandomUsersData(myRules, randomUsersData);
-const usersTable = new createTable(dataBase);
-const storageManipulate = new localStorageManipulate(nameStorage);
-const userData = new addNewUsersData(formUserData, divNotFilledField);
+const generateUsers = new GenerateRandomUsersData(myRules, randomUsersData);
+const usersTable = new ManipulateWithTable(
+  table,
+  dataBase,
+  valueArr,
+  dataArr,
+  addData
+);
+const storageManipulate = new LocalStorageManipulate(nameStorage);
+const userData = new AddNewUsersData(formUserData, divNotFilledField);
 
 //-------------------Button Delete Local Storage---------------------
 button1.addEventListener("click", () => {
   console.info("The local storage deleted");
   storageManipulate.deleteLocalStorage();
-  usersTable.clearTable(tbody);
+  usersTable.clearTable(undefined, "tbody");
 });
 //------------------Button Generate Random Local Storage------------
 button2.addEventListener("click", () => {
@@ -46,7 +54,7 @@ button2.addEventListener("click", () => {
     storageManipulate.setLocalStorage(getDataBase.concat(dataBase));
   }
   usersTable.setDataBase(storageManipulate.getLocalStorage());
-  usersTable.create(thead, tbody);
+  usersTable.create();
 });
 //------------------Button To display Local Storage-----------------
 button3.addEventListener("click", () => {
@@ -58,27 +66,32 @@ button3.addEventListener("click", () => {
     console.table(obj);
   }
 });
-//------------------Add new user-----------------------------------
+//------------------Button for add new user-------------------------
 button.addEventListener("click", () => {
   const newUserData = userData.getNewUserData();
   if (newUserData !== undefined) {
     addNewUserToLocalStorage(storageManipulate, newUserData);
-    renderTable(storageManipulate, usersTable, thead, tbody);
+    renderTable(storageManipulate, usersTable);
   }
 });
 //------------------After load window render Table-----------------
 window.addEventListener("load", function () {
-  renderTable(storageManipulate, usersTable, thead, tbody);
+  renderTable(storageManipulate, usersTable);
 });
 
-//table.addEventListener("dblclick", editTable);
-//document.body.addEventListener("click", deleteInput);
+table.addEventListener("dblclick", (event) => {
+  usersTable.addInputTableValue(event);
+});
+document.body.addEventListener("click", () => {
+  //отримуємо об'єкт для внесення змін у LockalStorage
+  usersTable.editTable();
+});
 
-function renderTable(storagManipulation, tabelManipulation, thead, tbody) {
+function renderTable(storagManipulation, tabelManipulation) {
   const localStorageArr = storagManipulation.getLocalStorage();
   if (localStorageArr !== null) {
     tabelManipulation.setDataBase(localStorageArr);
-    tabelManipulation.create(thead, tbody);
+    tabelManipulation.create();
   }
 }
 

@@ -1,6 +1,6 @@
 "use strict";
 
-class addNewUsersData {
+class AddNewUsersData {
   constructor(form, alarmDiv) {
     this.form = form;
     this.nameField = form.querySelector('input[type="text"]');

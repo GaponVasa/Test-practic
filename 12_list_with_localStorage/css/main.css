@@ -34,7 +34,7 @@ main {
   padding: 20px;
   border: 1px solid black;
 }
-.container {
+main .container {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 2fr;
@@ -55,15 +55,16 @@ main {
 }
 .addNewUsers p input {
   width: 60%;
+  font-size: 16px;
 }
 .addNewUsers p input,
 .addNewUsers p select {
   padding: 3px;
-  font-size: 16px;
   line-height: 16px;
 }
 .addNewUsers p select {
   width: 63%;
+  font-size: 17px;
 }
 .addNewUsers p select option {
   border-bottom: 1px solid black;

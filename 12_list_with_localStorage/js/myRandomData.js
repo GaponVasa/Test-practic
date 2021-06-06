@@ -1,7 +1,8 @@
 "use strict";
 
 //rules - object налаштуваннь для вихідного масиву даних
-//{quantitiesOfUsers, boyOrGirlRelation, first_name, last_name, bithday, phone, email, role}
+//{id, quantitiesOfUsers, boyOrGirlRelation, first_name, last_name, bithday, phone, email, role}
+//id - унікальний ідентифікатор
 //quantitiesOfUsers - кількість об'єктів інформації про уявних людей
 //boyOrGirlRelation - співвідношення статі користувачів. 0 - тільки дівчатка, 1 - тільки хлопчики.
 //first_name - ім'я користувача. true - добавляємо до об'єкту false - не добавляємо.
@@ -12,7 +13,7 @@
 //role - статус користувача. Array - добавляємо до об'єкту згідно ролей зазначених у масиві. Ролі добавляються у форматі рядок(STRING). false - не добавляємо.
 ////////////////////////////////////////////////////////////////////////////////////////////
 // patternData - object набір шаблонів для створення вихідного масиву даних
-class generateRandomUsersData {
+class GenerateRandomUsersData {
   constructor(rules, patternData) {
     this.rules = rules;
     this.patternData = patternData;
@@ -128,7 +129,7 @@ class generateRandomUsersData {
     this.dataBase = [];
   }
 
-  PRIVATE_createPerson() {
+  PRIVATE_createPerson(iterNumber) {
     const userObj = {};
 
     const rules = this.rules;
@@ -159,6 +160,11 @@ class generateRandomUsersData {
       nameField,
       "firstNameNik"
     );
+
+    if (rules.id === true) {
+      const date = Date.now();
+      userObj.id = date + iterNumber;
+    }
 
     if (rules.lastName === true) {
       lastNameField = "lastName";
@@ -198,7 +204,7 @@ class generateRandomUsersData {
     const number = this.rules.quantitiesOfUsers;
     this.PRIVATE_deleteDataBase();
     for (let i = 1; i <= number; i++) {
-      this.dataBase.push(this.PRIVATE_createPerson());
+      this.dataBase.push(this.PRIVATE_createPerson(i));
     }
   }
 
