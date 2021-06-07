@@ -66,22 +66,26 @@ class ManipulateWithTable {
     }
   }
 
-  addInputTableValue(event) {
+  addInputToTable(event) {
     const target = event.target;
     this.editingTag = target;
     this.PRIVATE_findTableValue(target);
-    target.innerHTML = `<input autofocus type="text" value="${this.editingValue} ">`;
+    target.innerHTML = `<input type="text" value="${this.editingValue} ">`;
+    target.querySelector("input").focus();
     this.editFlag = true;
   }
 
-  editTable() {
-    if (this.editFlag === true) {
+  deleteInputFromTable(event) {
+    const target = event.target;
+    if (this.editFlag === true && target.tagName !== "INPUT") {
+      const targetArr = [];
       const inputValue = this.editingTag.querySelector("input").value;
-      console.log(inputValue);
       this.editFlag = false;
       this.editingTag.innerHTML = inputValue;
-      //повертаємо обєкт для внесення змін у LockalStorage
-      //return {};
+      targetArr[0] = this.arrAddrEditingObj;
+      targetArr[1] = this.editingName;
+      targetArr[2] = inputValue;
+      return targetArr;
     }
   }
 

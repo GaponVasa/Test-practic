@@ -80,11 +80,23 @@ window.addEventListener("load", function () {
 });
 
 table.addEventListener("dblclick", (event) => {
-  usersTable.addInputTableValue(event);
+  usersTable.addInputToTable(event);
 });
-document.body.addEventListener("click", () => {
-  //отримуємо об'єкт для внесення змін у LockalStorage
-  usersTable.editTable();
+
+document.body.addEventListener("click", (event) => {
+  const resultArr = usersTable.deleteInputFromTable(event);
+  if (resultArr !== undefined) {
+    const index = resultArr[0];
+    const nameField = resultArr[1];
+    const value = resultArr[2];
+    const obj = storageManipulate.getLocalStorage();
+    obj[index][nameField] = value;
+    storageManipulate.setLocalStorage(obj);
+    usersTable.setDataBase(storageManipulate.getLocalStorage());
+    usersTable.create();
+  } else {
+    return false;
+  }
 });
 
 function renderTable(storagManipulation, tabelManipulation) {
