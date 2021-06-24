@@ -31,6 +31,8 @@ class ManipulateWithTable {
   }
 
   PRIVATE_addAllRows() {
+    // console.log(this.dataBase);
+    // console.dir(this.dataBase);
     this.dataBase.forEach((element) => {
       const tr = document.createElement("tr");
       this.fields.forEach((innElement) => {
@@ -60,9 +62,9 @@ class ManipulateWithTable {
           return false;
         }
       });
-      console.log("this.editingValue = ", this.editingValue);
-      console.log("this.editingName = ", this.editingName);
-      console.log("this.arrAddrEditingObj = ", this.arrAddrEditingObj);
+      // console.log("this.editingValue = ", this.editingValue);
+      // console.log("this.editingName = ", this.editingName);
+      // console.log("this.arrAddrEditingObj = ", this.arrAddrEditingObj);
     }
   }
 
@@ -70,7 +72,7 @@ class ManipulateWithTable {
     const target = event.target;
     this.editingTag = target;
     this.PRIVATE_findTableValue(target);
-    target.innerHTML = `<input type="text" value="${this.editingValue} ">`;
+    target.innerHTML = `<div class="group"><input type="text" value="${this.editingValue} "/><button id="buttonOk">OK</button></div>`;
     target.querySelector("input").focus();
     this.editFlag = true;
   }

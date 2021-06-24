@@ -50,23 +50,23 @@ main .container {
   border: 1px solid black;
   padding: 5px 5px 20px 5px;
 }
-.addNewUsers p {
+.addNewUsers div {
   margin: 20px 0 0 0;
 }
-.addNewUsers p input {
+.addNewUsers div input {
   width: 60%;
   font-size: 16px;
 }
-.addNewUsers p input,
-.addNewUsers p select {
+.addNewUsers div input,
+.addNewUsers div select {
   padding: 3px;
   line-height: 16px;
 }
-.addNewUsers p select {
+.addNewUsers div select {
   width: 63%;
   font-size: 17px;
 }
-.addNewUsers p select option {
+.addNewUsers div select option {
   border-bottom: 1px solid black;
 }
 button {
@@ -79,8 +79,52 @@ button {
   border-radius: 3px;
   cursor: pointer;
 }
+/* ---------------- Not filled field---------------------*/
+.error {
+  font-size: 1.6em;
+  line-height: 1.6em;
+  cursor: inherit;
+}
+.colorRed {
+  color: red;
+}
+.borderRed {
+  border-color: red;
+}
+.borderGray {
+  border-color: rgb(133, 133, 133);
+}
+.colorWhite {
+  color: white;
+}
+/*---------------- Table ------------------*/
 .usersTable table {
   width: 100%;
+}
+.group {
+  display: flex;
+  flex-direction: row;
+}
+.group input {
+  flex-grow: 1;
+  /* width: 100%; */
+  border-style: none;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1em;
+  padding: 0;
+}
+.group button {
+  width: 15%;
+  border: 1px solid black;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1em;
+  margin: 0;
+  padding: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
 }
 .usersTable tr th,
 .usersTable tr td {
@@ -92,11 +136,7 @@ button {
 .usersTable tr th {
   background-color: #ccc;
 }
-.usersTable tr td input[type="text"] {
-  width: 98%;
-  font-size: 16px;
-  line-height: 16px;
-}
+
 /*----------------------------FOOTER-----------------------------*/
 footer {
   width: 100%;

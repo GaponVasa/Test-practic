@@ -67,40 +67,50 @@ button3.addEventListener("click", () => {
   }
 });
 //------------------Button for add new user-------------------------
-button.addEventListener("click", () => {
+button.addEventListener("click", (event) => {
   const newUserData = userData.getNewUserData();
-  if (newUserData !== undefined) {
+  //console.log('button.addEventListener("click" ... newUserData =', newUserData);
+  if (newUserData !== "no user") {
+    // console.log('if (newUserData !== "no user")');
+    // console.log(newUserData);
     addNewUserToLocalStorage(storageManipulate, newUserData);
     renderTable(storageManipulate, usersTable);
   }
+  event.preventDefault();
 });
 //------------------After load window render Table-----------------
 window.addEventListener("load", function () {
   renderTable(storageManipulate, usersTable);
 });
 
+//------------------Start edit cell--------------------------------
 table.addEventListener("dblclick", (event) => {
   usersTable.addInputToTable(event);
 });
 
-document.body.addEventListener("click", (event) => {
-  const resultArr = usersTable.deleteInputFromTable(event);
-  if (resultArr !== undefined) {
-    const index = resultArr[0];
-    const nameField = resultArr[1];
-    const value = resultArr[2];
-    const obj = storageManipulate.getLocalStorage();
-    obj[index][nameField] = value;
-    storageManipulate.setLocalStorage(obj);
-    usersTable.setDataBase(storageManipulate.getLocalStorage());
-    usersTable.create();
-  } else {
-    return false;
+table.addEventListener("click", (event) => {
+  //console.log(event.target.id === "buttonOk");
+  const buttonOkClick = event.target.id === "buttonOk";
+  if (buttonOkClick) {
+    const resultArr = usersTable.deleteInputFromTable(event);
+    if (resultArr !== undefined) {
+      const index = resultArr[0];
+      const nameField = resultArr[1];
+      const value = resultArr[2];
+      const obj = storageManipulate.getLocalStorage();
+      obj[index][nameField] = value;
+      storageManipulate.setLocalStorage(obj);
+      usersTable.setDataBase(storageManipulate.getLocalStorage());
+      usersTable.create();
+    } else {
+      return false;
+    }
   }
 });
 
 function renderTable(storagManipulation, tabelManipulation) {
   const localStorageArr = storagManipulation.getLocalStorage();
+  //console.log("renderTable()  localStorageArr = ", localStorageArr);
   if (localStorageArr !== null) {
     tabelManipulation.setDataBase(localStorageArr);
     tabelManipulation.create();

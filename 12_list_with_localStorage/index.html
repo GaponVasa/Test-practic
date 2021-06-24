@@ -18,31 +18,49 @@
         <div class="addNewUsers">
           <h2>Add new user</h2>
           <form action="" id="addNewUserData">
-            <p>
+            <div>
               <input
                 type="text"
+                id="nameInput"
+                class="borderGray"
                 name="userName"
                 placeholder="Enter Name"
                 required
               />
-            </p>
-            <p>
+              <p id="nameInputError" class="error colorWhite">
+                Fill this field.
+              </p>
+            </div>
+            <div>
               <input
                 type="email"
+                id="emailInput"
+                class="borderGray"
                 name="userEmail"
                 placeholder="Enter email"
                 required
               />
-            </p>
-            <p>
-              <select name="userRole" required>
+              <p id="emailInputError" class="error colorWhite">
+                Fill this field.
+              </p>
+            </div>
+            <div>
+              <select
+                name="userRole"
+                id="userRoleSelect"
+                class="borderGray"
+                required
+              >
                 <option selected>select role</option>
                 <option value="Admin">Admin</option>
                 <option value="User">User</option>
                 <option value="Guest">Guest</option>
               </select>
-            </p>
-            <p><button>ADD</button></p>
+              <p id="userRoleSelectError" class="error colorWhite">
+                Select this option.
+              </p>
+            </div>
+            <div><button>ADD</button></div>
           </form>
         </div>
         <div class="usersTable">
@@ -79,7 +97,6 @@
         </p>
       </div>
     </footer>
-    <div class="notFilledField">Fill this field</div>
     <script src="js/myData.js" type="text/javascript"></script>
     <script src="js/storageManipulate.js"></script>
     <script src="js/myRandomData.js"></script>
