@@ -13,6 +13,7 @@ const myRules =
   //   role: false,
   // };
   {
+    id: true,
     quantitiesOfUsers: 5,
     boyOrGirlRelation: 0.5,
     firstName: true,
@@ -46,5 +47,6 @@ button2.addEventListener("click", () => {
 //------------------Button To display Random Users Object-----------------
 const button3 = document.getElementById("toDisplay");
 button3.addEventListener("click", () => {
-  console.log(dataBase);
+  console.info("dataBase");
+  console.table(dataBase);
 });

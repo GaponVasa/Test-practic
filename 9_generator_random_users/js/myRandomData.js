@@ -1,7 +1,8 @@
 "use strict";
 
 //rules - object налаштуваннь для вихідного масиву даних
-//{quantitiesOfUsers, boyOrGirlRelation, first_name, last_name, bithday, phone, email, role}
+//{id, quantitiesOfUsers, boyOrGirlRelation, first_name, last_name, bithday, phone, email, role}
+//id - унікальний ідентифікатор
 //quantitiesOfUsers - кількість об'єктів інформації про уявних людей
 //boyOrGirlRelation - співвідношення статі користувачів. 0 - тільки дівчатка, 1 - тільки хлопчики.
 //first_name - ім'я користувача. true - добавляємо до об'єкту false - не добавляємо.
@@ -26,8 +27,12 @@ class generateRandomUsersData {
   PRIVATE_boyOrGirl(userObj, rules) {
     const getRandomBoyOrGirlNumber = this.PRIVATE_randomNumber(0, 10);
     const boyOrGirlRelation = rules.boyOrGirlRelation * 10;
-    userObj.gender =
+    const boyOrGirlResult =
       getRandomBoyOrGirlNumber <= boyOrGirlRelation ? "boy" : "girl";
+    if (rules.boyOrGirl === true) {
+      userObj.gender = boyOrGirlResult;
+    }
+    return boyOrGirlResult;
   }
 
   PRIVATE_createUserName(userObj, nameArr, rules, nameField, nikNameField) {
@@ -122,10 +127,10 @@ class generateRandomUsersData {
   }
 
   PRIVATE_deleteDataBase() {
-    this.dataBase = [];
+    this.dataBase.length = 0;
   }
 
-  PRIVATE_createPerson() {
+  PRIVATE_createPerson(iterNumber) {
     const userObj = {};
 
     const rules = this.rules;
@@ -136,17 +141,22 @@ class generateRandomUsersData {
     const domainName = patternData.domain;
     const role = rules.role;
     const isTrueRoles = Array.isArray(role);
+    const boyOrGirlResult = this.PRIVATE_boyOrGirl(userObj, rules);
     let nameField = false;
+    let lastNameField = false;
     let girlBoyNameArr = [];
-
-    this.PRIVATE_boyOrGirl(userObj, rules);
-
+    //----------------create ID-----------------------
+    if (rules.id === true) {
+      const date = Date.now();
+      userObj.id = date + iterNumber;
+    }
+    //----------------create first name ----------------
     if (rules.firstName === true) {
       nameField = "firstName";
     }
-    if (userObj.gender === "boy") {
+    if (boyOrGirlResult === "boy") {
       girlBoyNameArr = boyFirstNameArr;
-    } else if (userObj.gender === "girl") {
+    } else if (boyOrGirlResult === "girl") {
       girlBoyNameArr = girlFirstNameArr;
     }
     this.PRIVATE_createUserName(
@@ -156,29 +166,30 @@ class generateRandomUsersData {
       nameField,
       "firstNameNik"
     );
-
+    //--------------------create last name---------------
     if (rules.lastName === true) {
-      this.PRIVATE_createUserName(
-        userObj,
-        lastNameArr,
-        rules,
-        "lastName",
-        "lastNameNik"
-      );
+      lastNameField = "lastName";
     }
-
+    this.PRIVATE_createUserName(
+      userObj,
+      lastNameArr,
+      rules,
+      lastNameField,
+      "lastNameNik"
+    );
+    //--------------------create birthday-----------------
     if (typeof rules.bithday === "object") {
       this.PRIVATE_createBirthday(userObj, rules.bithday);
     }
-
+    //--------------------create phone number------------
     if (rules.phone === true) {
       this.PRIVATE_createPhone(userObj);
     }
-
+    //--------------------create email--------------------
     if (rules.email === true) {
       this.PRIVATE_createEmail(userObj, domainName);
     }
-
+    //--------------------create users role--------------
     if (isTrueRoles === true) {
       this.PRIVATE_createRole(userObj, role);
     } else if (role === true) {
@@ -194,7 +205,7 @@ class generateRandomUsersData {
     const number = this.rules.quantitiesOfUsers;
     this.PRIVATE_deleteDataBase();
     for (let i = 1; i <= number; i++) {
-      this.dataBase.push(this.PRIVATE_createPerson());
+      this.dataBase.push(this.PRIVATE_createPerson(i));
     }
   }
 
